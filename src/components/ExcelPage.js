@@ -19,6 +19,7 @@ function ExcelPage() {
 	const [columns, setColumns] = useState(null);
 	const [rows, setRows] = useState(null);
 	const [selectedColumn, setSelectedColumn] = useState(null);
+	const [rowsEdited, setRowsEdited] = useState(0);
 
 	/**
 	 * If file passes validation, this saves the file name (without extension) to
@@ -154,6 +155,9 @@ function ExcelPage() {
 			// update table
 			setRows(stripped);
 
+			// set number of edited rows
+			setRowsEdited(count);
+
 			// show count of changed cells
 			message.success(`${count} rows updated`);
 		}
@@ -208,6 +212,7 @@ function ExcelPage() {
 		setColumns(null);
 		setRows(null);
 		setSelectedColumn(null);
+		setRowsEdited(0);
 	};
 
 	const isActive = !!rows;
@@ -229,7 +234,7 @@ function ExcelPage() {
 
 				{isActive && (
 					<Space>
-						<strong>Select&nbsp;Column</strong>
+						Column
 						<Select
 							style={{ minWidth: '12rem'}}
 							defaultValue={selectedColumn}
@@ -249,6 +254,7 @@ function ExcelPage() {
 						<Button
 							type="primary"
 							onClick={handleExportFile}
+							disabled={rowsEdited === 0}
 						>
 							Export File
 						</Button>
