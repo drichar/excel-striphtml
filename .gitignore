@@ -11,6 +11,9 @@
 # production
 /build
 
+# sample file
+Thread Example.xlsx
+
 # misc
 .DS_Store
 .env.local
