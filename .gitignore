@@ -14,6 +14,9 @@
 # sample file
 Thread Example.xlsx
 
+# VS Code workspace
+excel-striphtml.code-workspace
+
 # misc
 .DS_Store
 .env.local
