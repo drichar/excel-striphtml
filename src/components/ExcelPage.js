@@ -5,7 +5,8 @@ import { UploadOutlined } from '@ant-design/icons';
 
 import {
 	ActionsContainer,
-	UploadContainer
+	UploadContainer,
+	ButtonsContainer
 } from '../styles/ExcelPage.css'
 
 const { Option } = Select;
@@ -233,32 +234,36 @@ function ExcelPage() {
 				</UploadContainer>
 
 				{isActive && (
-					<Space>
-						Column
-						<Select
-							style={{ minWidth: '12rem'}}
-							defaultValue={selectedColumn}
-							placeholder="Select a column to strip HTML from"
-							onChange={handleSelectedColumnChange}
-						>
-							{columns.map((col) => (
-								<Option key={col.dataIndex} value={col.dataIndex}>{col.title}</Option>
-							))}
-						</Select>
-						<Button
-							type="primary"
-							onClick={handleStripHtml}
-						>
-							Strip HTML
-						</Button>
-						<Button
-							type="primary"
-							onClick={handleExportFile}
-							disabled={rowsEdited === 0}
-						>
-							Export File
-						</Button>
-					</Space>
+					<ButtonsContainer>
+						<Space style={{ marginBottom: '2rem', marginRight: '0.5rem' }}>
+							Column
+							<Select
+								style={{ minWidth: '12rem'}}
+								defaultValue={selectedColumn}
+								placeholder="Select a column to strip HTML from"
+								onChange={handleSelectedColumnChange}
+							>
+								{columns.map((col) => (
+									<Option key={col.dataIndex} value={col.dataIndex}>{col.title}</Option>
+								))}
+							</Select>
+						</Space>
+						<Space style={{ marginBottom: '2rem' }}>
+							<Button
+								type="primary"
+								onClick={handleStripHtml}
+							>
+								Strip HTML
+							</Button>
+							<Button
+								type="primary"
+								onClick={handleExportFile}
+								disabled={rowsEdited === 0}
+							>
+								Export File
+							</Button>
+						</Space>
+					</ButtonsContainer>
 				)}
 			</ActionsContainer>
 

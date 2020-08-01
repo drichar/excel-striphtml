@@ -11,3 +11,8 @@ export const ActionsContainer = styled.div`
 export const UploadContainer = styled.div`
 	margin-bottom: 2rem;
 `;
+
+export const ButtonsContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+`;
