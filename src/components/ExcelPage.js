@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import XLSX from 'xlsx';
-import { Upload, Button, Table, Select, message } from 'antd';
+import { Space, Upload, Button, Table, Select, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+
+import {
+	ActionsContainer,
+	UploadContainer
+} from '../styles/ExcelPage.css'
 
 const { Option } = Select;
 
@@ -11,8 +16,8 @@ function ExcelPage() {
 	const [initialData, setInitialData] = useState(null);
 	const [exportName, setExportName] = useState('');
 	const [title, setTitle] = useState('');
-	const [columns, setColumns] = useState([]);
-	const [rows, setRows] = useState([]);
+	const [columns, setColumns] = useState(null);
+	const [rows, setRows] = useState(null);
 	const [selectedColumn, setSelectedColumn] = useState(null);
 
 	/**
@@ -24,6 +29,9 @@ function ExcelPage() {
 	 * @param {object} file
 	 */
 	const fileHandler = (file) => {
+		// if there was a previous file, reset state
+		handleReset();
+
 		if (!file) {
 			message.error('No file uploaded!');
 			return false;
@@ -190,49 +198,71 @@ function ExcelPage() {
 		XLSX.writeFile(book, `${exportName}.xlsx`);
 	};
 
+	/**
+	 * When remove file icon is clicked, reset app to initial state
+	 */
+	const handleReset = () => {
+		setInitialData(null);
+		setExportName('');
+		setTitle('');
+		setColumns(null);
+		setRows(null);
+		setSelectedColumn(null);
+	};
+
+	const isActive = !!rows;
+
 	return (
 		<div>
-			<Upload
-				name="file"
-				beforeUpload={fileHandler}
-			>
-				<Button>
-					<UploadOutlined /> Upload Excel file
-				</Button>
-			</Upload>
+			<ActionsContainer isActive={isActive}>
+				<UploadContainer>
+					<Upload
+						name="file"
+						beforeUpload={fileHandler}
+						onRemove={handleReset}
+					>
+						<Button type="primary" size="large">
+							<UploadOutlined /> Upload Excel file
+						</Button>
+					</Upload>
+				</UploadContainer>
 
-			{rows.length > 0 && (
-				<div>
-					<Select
-						defaultValue={selectedColumn}
-						placeholder="Select a column to strip HTML from"
-						onChange={handleSelectedColumnChange}
-					>
-						{columns.map((col) => (
-							<Option value={col.dataIndex}>{col.title}</Option>
-						))}
-					</Select>
-					<Button
-						type="primary"
-						size="large"
-						onClick={handleStripHtml}
-					>
-						Strip HTML
-					</Button>
-					<Button
-						type="primary"
-						size="large"
-						onClick={handleExportFile}
-					>
-						Export File
-					</Button>
-					<Table
-						columns={columns}
-						dataSource={rows}
-						bordered
-						title={() => <h2>{title}</h2>}
-					/>
-				</div>
+				{isActive && (
+					<Space>
+						<strong>Select&nbsp;Column</strong>
+						<Select
+							style={{ minWidth: '12rem'}}
+							defaultValue={selectedColumn}
+							placeholder="Select a column to strip HTML from"
+							onChange={handleSelectedColumnChange}
+						>
+							{columns.map((col) => (
+								<Option key={col.dataIndex} value={col.dataIndex}>{col.title}</Option>
+							))}
+						</Select>
+						<Button
+							type="primary"
+							onClick={handleStripHtml}
+						>
+							Strip HTML
+						</Button>
+						<Button
+							type="primary"
+							onClick={handleExportFile}
+						>
+							Export File
+						</Button>
+					</Space>
+				)}
+			</ActionsContainer>
+
+			{isActive && (
+				<Table
+					columns={columns}
+					dataSource={rows}
+					bordered
+					title={() => <h2>{title}</h2>}
+				/>
 			)}
 		</div>
 	);
