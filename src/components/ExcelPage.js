@@ -11,7 +11,11 @@ import {
 	Steps,
 	message
 } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+
+import {
+	UploadOutlined,
+	SaveOutlined
+} from '@ant-design/icons';
 
 import {
 	ActionsContainer,
@@ -289,7 +293,10 @@ function ExcelPage() {
 						onChange={handleUploadChange}
 						onRemove={handleReset}
 					>
-						<Button type="primary" size="large">
+						<Button
+							type="primary"
+							size="large"
+						>
 							<UploadOutlined /> Upload {`${isActive ? 'new Excel' : 'Excel'}`} file
 						</Button>
 					</Upload>
@@ -325,7 +332,7 @@ function ExcelPage() {
 								onClick={handleExportFile}
 								disabled={rowsEdited === 0}
 							>
-								Export File
+								<SaveOutlined /> Export File
 							</Button>
 						</Space>
 					</ButtonsContainer>
