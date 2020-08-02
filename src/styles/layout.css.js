@@ -10,6 +10,14 @@ export const Container = styled(Layout)`
 		height: 4rem;
 		padding: 0 1.5rem;
 		line-height: 4rem;
+
+		.ant-menu-item {
+			.anticon {
+				font-size: 24px;
+				margin: 0;
+				transform: translateY(0.125rem);
+			}
+		}
 	}
 
 	.ant-layout-content {
