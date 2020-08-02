@@ -34,6 +34,7 @@ function ExcelPage() {
 	const [selectedColumn, setSelectedColumn] = useState(null);
 	const [rowsEdited, setRowsEdited] = useState(0);
 	const [fileList, setFileList] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	/**
 	 * If file passes validation, this saves the file name (without extension) to
@@ -142,6 +143,7 @@ function ExcelPage() {
 	 * indicating the total to the user upon completion.
 	 */
 	const handleStripHtml = () => {
+		setIsLoading(true);
 		let count = 0;
 		
 		const stripped = rows.map((row) => {
@@ -188,6 +190,8 @@ function ExcelPage() {
 			// show count of changed cells
 			message.success(`${count} cells updated`);
 		}
+
+		setIsLoading(false);
 	};
 
 	/**
@@ -277,7 +281,7 @@ function ExcelPage() {
 				</Col>
 			</Row>
 			<ActionsContainer isActive={isActive}>
-				<UploadContainer isActive={isActive}>
+				<UploadContainer>
 					<Upload
 						name="file"
 						fileList={fileList}
@@ -332,6 +336,7 @@ function ExcelPage() {
 				<Table
 					columns={columns}
 					dataSource={rows}
+					loading={isLoading}
 					bordered
 					title={() => <SheetTitle>{title}</SheetTitle>}
 				/>
