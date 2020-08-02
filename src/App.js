@@ -1,6 +1,6 @@
 import React from 'react';
-import { Layout } from 'antd';
-import { FileExcelFilled } from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
+import { FileExcelFilled, GithubOutlined } from '@ant-design/icons';
 import ExcelPage from './components/ExcelPage';
 import './App.less';
 
@@ -25,6 +25,13 @@ function App() {
 					}} />
 					Excel StripHTML
 				</Logo>
+				<Menu theme="dark" mode="horizontal">
+					<Menu.Item>
+						<a href="https://github.com/drichar/excel-striphtml">
+							<GithubOutlined style={{ fontSize: '24px', transform: 'translateY(0.125rem)' }} />
+						</a>
+					</Menu.Item>
+				</Menu>
 			</Header>
 			<Content>
 				<PageContainer>

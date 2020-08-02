@@ -6,7 +6,7 @@ export const Container = styled(Layout)`
 
 	.ant-layout-header {
 		display: flex;
-		justify-content: flex-start;
+		justify-content: space-between;
 		height: 4rem;
 		padding: 0 1.5rem;
 		line-height: 4rem;
