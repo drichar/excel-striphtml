@@ -277,7 +277,7 @@ function ExcelPage() {
 				</Col>
 			</Row>
 			<ActionsContainer isActive={isActive}>
-				<UploadContainer>
+				<UploadContainer isActive={isActive}>
 					<Upload
 						name="file"
 						fileList={fileList}

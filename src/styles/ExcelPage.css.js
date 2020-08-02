@@ -9,6 +9,7 @@ export const ActionsContainer = styled.div`
 `;
 
 export const UploadContainer = styled.div`
+	margin-right: ${({ isActive }) => isActive ? '2rem' : 0};
 	margin-bottom: 2rem;
 `;
 
