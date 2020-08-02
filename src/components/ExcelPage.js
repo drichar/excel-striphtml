@@ -338,6 +338,7 @@ function ExcelPage() {
 					dataSource={rows}
 					loading={isLoading}
 					bordered
+					scroll={{ x: 800 }}
 					title={() => <SheetTitle>{title}</SheetTitle>}
 				/>
 			)}
