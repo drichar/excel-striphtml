@@ -16,7 +16,8 @@ import { UploadOutlined } from '@ant-design/icons';
 import {
 	ActionsContainer,
 	UploadContainer,
-	ButtonsContainer
+	ButtonsContainer,
+	SheetTitle
 } from '../styles/ExcelPage.css'
 
 const { Option } = Select;
@@ -283,7 +284,7 @@ function ExcelPage() {
 								style={{ minWidth: '12rem'}}
 								size="large"
 								defaultValue={selectedColumn}
-								placeholder="Select a column to strip HTML from"
+								placeholder="Select a column"
 								onChange={handleSelectedColumnChange}
 							>
 								{columns.map((col) => (
@@ -317,7 +318,7 @@ function ExcelPage() {
 					columns={columns}
 					dataSource={rows}
 					bordered
-					title={() => <h2>{title}</h2>}
+					title={() => <SheetTitle>{title}</SheetTitle>}
 				/>
 			)}
 		</div>

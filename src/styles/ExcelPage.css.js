@@ -16,3 +16,7 @@ export const ButtonsContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 `;
+
+export const SheetTitle = styled.h2`
+	margin: 0;
+`;
