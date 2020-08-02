@@ -31,7 +31,7 @@ export const Container = styled(Layout)`
 		}
 	}
 
-	@media (min-width: 40em) {
+	@media screen and (min-width: 40em) {
 		.ant-layout-header {
 			padding: 0 3rem;
 		}

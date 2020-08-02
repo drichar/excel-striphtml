@@ -18,9 +18,13 @@
 }
 
 .text-column {
-	width: 50%;
+	width: calc(100vw - 3rem);
 
-	@media screen and (min-width: 1200px) {
+	@media screen and (min-width: 40em) {
+		width: calc(100vw - 9rem);
+	}
+
+	@media screen and (min-width: 50em) {
 		width: 40em;
 	}
 }
