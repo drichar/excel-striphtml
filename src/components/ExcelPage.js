@@ -33,6 +33,7 @@ function ExcelPage() {
 	const [rows, setRows] = useState(null);
 	const [selectedColumn, setSelectedColumn] = useState(null);
 	const [rowsEdited, setRowsEdited] = useState(0);
+	const [fileList, setFileList] = useState(null);
 
 	/**
 	 * If file passes validation, this saves the file name (without extension) to
@@ -78,6 +79,18 @@ function ExcelPage() {
 		// read file
 		reader.readAsBinaryString(file);
 		return false;
+	};
+
+	/**
+	 * This is an onChange handler for the Ant <Upload/> component. If a new file
+	 * is chosen, the previous one is removed.
+	 * @param {object} info data from <Upload/>
+	 */
+	const handleUploadChange = (info) => {
+		let newList = [...info.fileList];
+		newList = newList.slice(-1);
+
+		setFileList(newList);
 	};
 
 	/**
@@ -250,7 +263,7 @@ function ExcelPage() {
 					<Steps direction="vertical" size="small" current={getStep()}>
 						<Step title="Upload file" description="Select an Excel spreadsheet" />
 						<Step title="Strip HTML" description="Remove HTML tags from the selected column" />
-						<Step title="Export file" description="Save a copy of your new file" />
+						<Step title="Export file" description="Save a copy of the stripped file" />
 					</Steps>
 				</Col>
 			</Row>
@@ -259,7 +272,7 @@ function ExcelPage() {
 					<Steps current={getStep()}>
 						<Step title="Upload file" description="Select an Excel spreadsheet" />
 						<Step title="Strip HTML" description="Remove HTML tags from the selected column" />
-						<Step title="Export file" description="Save a copy of your new file" />
+						<Step title="Export file" description="Save a copy of the stripped file" />
 					</Steps>
 				</Col>
 			</Row>
@@ -267,11 +280,13 @@ function ExcelPage() {
 				<UploadContainer>
 					<Upload
 						name="file"
+						fileList={fileList}
 						beforeUpload={fileHandler}
+						onChange={handleUploadChange}
 						onRemove={handleReset}
 					>
 						<Button type="primary" size="large">
-							<UploadOutlined /> Upload Excel file
+							<UploadOutlined /> Upload {`${isActive ? 'new Excel' : 'Excel'}`} file
 						</Button>
 					</Upload>
 				</UploadContainer>
