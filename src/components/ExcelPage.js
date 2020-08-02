@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import XLSX from 'xlsx';
-import { Space, Upload, Button, Table, Select, message } from 'antd';
+import {
+	Row,
+	Col,
+	Space,
+	Upload,
+	Button,
+	Table,
+	Select,
+	Steps,
+	message
+} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 import {
@@ -10,6 +20,7 @@ import {
 } from '../styles/ExcelPage.css'
 
 const { Option } = Select;
+const { Step } = Steps;
 
 const striptags = require('striptags');
 
@@ -82,7 +93,8 @@ function ExcelPage() {
 			let dataIndex = str.replace(/[^0-9a-zA-Z]/g, '');
 			return {
 				title: str,
-				dataIndex
+				dataIndex,
+				className: dataIndex === 'Text' ? 'text-column' : ''
 			}
 		});
 		setColumns(colData);
@@ -200,7 +212,7 @@ function ExcelPage() {
 		XLSX.utils.book_append_sheet(book, sheet, 'sheet 1');
 
 		// export file
-		XLSX.writeFile(book, `${exportName}.xlsx`);
+		XLSX.writeFile(book, `${exportName}_stripHTML.xlsx`);
 	};
 
 	/**
@@ -218,8 +230,38 @@ function ExcelPage() {
 
 	const isActive = !!rows;
 
+	const getStep = () => {
+		if( !isActive ) {
+			return 0;
+		}
+
+		if( isActive && rowsEdited === 0 ) {
+			return 1;
+		}
+
+		return 2;
+	};
+
 	return (
 		<div>
+			<Row className="steps-row-xs">
+				<Col>
+					<Steps direction="vertical" size="small" current={getStep()}>
+						<Step title="Upload file" description="Select an Excel spreadsheet" />
+						<Step title="Strip HTML" description="Remove HTML tags from the selected column" />
+						<Step title="Export file" description="Save a copy of your new file" />
+					</Steps>
+				</Col>
+			</Row>
+			<Row className="steps-row">
+				<Col sm={{ span: 24 }} xl={{ span: 16, offset: 4 }}>
+					<Steps current={getStep()}>
+						<Step title="Upload file" description="Select an Excel spreadsheet" />
+						<Step title="Strip HTML" description="Remove HTML tags from the selected column" />
+						<Step title="Export file" description="Save a copy of your new file" />
+					</Steps>
+				</Col>
+			</Row>
 			<ActionsContainer isActive={isActive}>
 				<UploadContainer>
 					<Upload
@@ -239,6 +281,7 @@ function ExcelPage() {
 							Column
 							<Select
 								style={{ minWidth: '12rem'}}
+								size="large"
 								defaultValue={selectedColumn}
 								placeholder="Select a column to strip HTML from"
 								onChange={handleSelectedColumnChange}
@@ -251,12 +294,14 @@ function ExcelPage() {
 						<Space style={{ marginBottom: '2rem' }}>
 							<Button
 								type="primary"
+								size="large"
 								onClick={handleStripHtml}
 							>
 								Strip HTML
 							</Button>
 							<Button
 								type="primary"
+								size="large"
 								onClick={handleExportFile}
 								disabled={rowsEdited === 0}
 							>

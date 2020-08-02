@@ -1,1 +1,22 @@
 @import '~antd/dist/antd.less';
+
+.steps-row-xs {
+	margin-bottom: 2rem;
+
+	@media screen and (min-width: 800px) {
+		display: none;
+	}
+}
+
+.steps-row {
+	display: none;
+
+	@media screen and (min-width: 800px) {
+		display: block;
+		margin-bottom: 2rem;
+	}
+}
+
+.text-column {
+	width: 50%;
+}
