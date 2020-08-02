@@ -186,7 +186,7 @@ function ExcelPage() {
 			setRowsEdited(count);
 
 			// show count of changed cells
-			message.success(`${count} rows updated`);
+			message.success(`${count} cells updated`);
 		}
 	};
 
