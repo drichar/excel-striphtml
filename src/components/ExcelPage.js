@@ -155,12 +155,10 @@ function ExcelPage() {
 
 			if (result) {
 				// turn all HTML breaks to spaces
-				result = result.replace('<br>', ' ');
-				result = result.replace('<br/>', ' ');
-				result = result.replace('<br />', ' ');
+				result = result.replace(/<br\s*\/?>/g, ' ');
 
 				// turn all HTML non-breaking spaces to spaces
-				result = result.replace('&nbsp;', ' ');
+				result = result.replace(/&nbsp;/g, ' ');
 
 				// @todo see if any other HTML tags/entities need to be converted
 
