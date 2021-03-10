@@ -73,7 +73,7 @@ function App() {
 				<p>This utility expects:</p>
 				<ul>
 					<li><strong>Cell A1</strong> to be the title</li>
-					<li><strong>Row 1</strong> to be the column names</li>
+					<li><strong>Row 2</strong> to be the column names</li>
 					<li><strong>Rows 3+</strong> to be the data</li>
 				</ul>
 			</Modal>
